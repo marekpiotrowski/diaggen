@@ -2,6 +2,8 @@
 #define ENGINE_CONTROLLER_API_ENGINE_CONTROLLER_ENGINE_ECU_H
 
 #include <engine_controller/ecu.h>
+#include <engine_controller/load_detector.h>
+#include <engine_controller/temperature_sensor.h>
 
 namespace diaggen
 {
@@ -11,10 +13,10 @@ namespace engine_controller
 class EngineEcu : public Ecu
 {
 public:
-    EngineEcu(int ecu_id);
+    EngineEcu(int ecu_id, const& LoadDetector detector, const& TemperatureSensor temperature_sensor);
     ~EngineEcu() = default;
 
-    double setThrottle();
+    void setThrottle(double throttle);
     bool canIncreaseThrottle() const;
     void adjustToCurrentLoad();
 private:

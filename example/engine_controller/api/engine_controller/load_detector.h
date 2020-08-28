@@ -1,7 +1,7 @@
 #ifndef ENGINE_CONTROLLER_API_ENGINE_CONTROLLER_LOAD_DETECTOR_H
 #define ENGINE_CONTROLLER_API_ENGINE_CONTROLLER_LOAD_DETECTOR_H
 
-#include <engine_controller/ecu.h>
+#include <vector>
 
 namespace diaggen
 {
@@ -17,6 +17,7 @@ public:
     double isStatusOk() const;
     double isDecreasing() const;
     void adjustAllowableLoads(double min_allowable_load, double max_allowable_load);
+    void refreshReading();
 private:
     double min_allowable_load_;
     double max_allowable_load_;
