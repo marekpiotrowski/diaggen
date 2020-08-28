@@ -1,7 +1,7 @@
 #ifndef ENGINE_CONTROLLER_API_ENGINE_CONTROLLER_TEMPERATURE_SENSOR_H
 #define ENGINE_CONTROLLER_API_ENGINE_CONTROLLER_TEMPERATURE_SENSOR_H
 
-#include <engine_controller/ecu.h>
+#include <engine_controller/temperature_sensor.h>
 
 namespace diaggen
 {
@@ -14,8 +14,10 @@ public:
     TemperatureSensor() = default;
     ~TemperatureSensor() = default;
 
-    double isTemperatureOk() const;
-    double isIncreasing() const;
+    bool isTemperatureOk() const;
+    bool isIncreasing() const;
+
+    void refreshReadings();
 
     void reset();
 

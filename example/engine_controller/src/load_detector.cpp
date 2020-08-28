@@ -25,6 +25,7 @@ bool LoadDetector::isDecreasing() const
         {
             return false;
         }
+        previous_load = load;
     }
     return true;
 }
