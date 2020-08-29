@@ -1,4 +1,5 @@
 #include <iostream>
+#include <chrono>
 #include <engine_controller/engine_ecu.h>
 
 namespace diaggen
@@ -15,7 +16,19 @@ EngineEcu::EngineEcu(int ecu_id,
 
 void EngineEcu::setThrottle(double throttle)
 {
-    std::cout << "Setting throttle to " << throttle << std::endl;
+    if(!canIncreaseThrottle()) {
+        temperature_sensor_.reset();
+        load_detector_.refreshReading();
+    } else
+    {
+        load_detector_.adjustAllowableLoads(11, 12);
+    }
+    std::this_thread::sleep_for(1s);
+    if(temperature_sensor_.isTemperatureOk())
+    {
+        std::cout << "Setting throttle to " << throttle << std::endl;
+    }
+    std::cout << "Setting throttle failed!" << std::endl;
 }
 
 bool EngineEcu::canIncreaseThrottle() const
