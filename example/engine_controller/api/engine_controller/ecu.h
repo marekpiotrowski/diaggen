@@ -17,8 +17,8 @@ public:
     int getEcuId() const;
     void activate();
 private:
-    int ecu_id{0};
-    bool is_on{false};
+    int ecu_id_{0};
+    bool is_on_{false};
 };
 
 } // namespace engine_controller
