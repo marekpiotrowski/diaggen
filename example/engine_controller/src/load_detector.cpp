@@ -13,7 +13,7 @@ LoadDetector::LoadDetector(double min_allowable_load, double max_allowable_load)
 
 bool LoadDetector::isStatusOk() const
 {
-    return current_load_ < max_allowable_load_ && current_load_ > min_allowable_load;
+    return current_load_ < max_allowable_load_ && current_load_ > min_allowable_load_;
 }
 
 bool LoadDetector::isDecreasing() const
@@ -43,7 +43,7 @@ void LoadDetector::refreshReading()
     {
         previous_loads_.push_back(i);
     }
-    current_load_ = *(previous_loads_.back());
+    current_load_ = previous_loads_.back();
 }
 
 } // namespace engine_controller

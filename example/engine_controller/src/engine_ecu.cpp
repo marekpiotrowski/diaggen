@@ -1,5 +1,6 @@
 #include <iostream>
 #include <chrono>
+#include <thread>
 #include <engine_controller/engine_ecu.h>
 
 namespace diaggen
@@ -7,21 +8,20 @@ namespace diaggen
 namespace engine_controller
 {
 
-EngineEcu::EngineEcu(int ecu_id,
-                     const& LoadDetector detector,
-                     const& TemperatureSensor temperature_sensor) :
+EngineEcu::EngineEcu(int ecu_id, const LoadDetector& detector, const TemperatureSensor& temperature_sensor) :
                      Ecu(ecu_id), detector_(detector), temperature_sensor_(temperature_sensor)
 {
 }
 
 void EngineEcu::setThrottle(double throttle)
 {
+    using namespace std::chrono_literals;
     if(!canIncreaseThrottle()) {
         temperature_sensor_.reset();
-        load_detector_.refreshReading();
+        detector_.refreshReading();
     } else
     {
-        load_detector_.adjustAllowableLoads(11, 12);
+        detector_.adjustAllowableLoads(11, 12);
     }
     std::this_thread::sleep_for(1s);
     if(temperature_sensor_.isTemperatureOk())

@@ -14,8 +14,8 @@ public:
     LoadDetector(double min_allowable_load, double max_allowable_load);
     ~LoadDetector() = default;
 
-    double isStatusOk() const;
-    double isDecreasing() const;
+    bool isStatusOk() const;
+    bool isDecreasing() const;
     void adjustAllowableLoads(double min_allowable_load, double max_allowable_load);
     void refreshReading();
 private:

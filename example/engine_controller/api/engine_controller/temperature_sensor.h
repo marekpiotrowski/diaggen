@@ -1,6 +1,7 @@
 #ifndef ENGINE_CONTROLLER_API_ENGINE_CONTROLLER_TEMPERATURE_SENSOR_H
 #define ENGINE_CONTROLLER_API_ENGINE_CONTROLLER_TEMPERATURE_SENSOR_H
 
+#include <array>
 #include <engine_controller/temperature_sensor.h>
 
 namespace diaggen

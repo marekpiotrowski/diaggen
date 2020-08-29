@@ -10,7 +10,7 @@ namespace engine_controller
 
 bool TemperatureSensor::isTemperatureOk() const
 {
-    return math::toCelsius(*previous_temperatures_.back()) < 90;
+    return math::toCelsius(previous_temperatures_.back()) < 90;
 }
 bool TemperatureSensor::isIncreasing() const
 {
@@ -28,7 +28,7 @@ bool TemperatureSensor::isIncreasing() const
 
 void TemperatureSensor::refreshReadings()
 {
-    previous_loads_ = std::vector<double>();
+    previous_temperatures_ = std::array<double, HISTORICAL_SAMPLES_COUNT>();
     for(int i = 0; i < previous_temperatures_.size(); i++)
     {
         previous_temperatures_[i] = 88;

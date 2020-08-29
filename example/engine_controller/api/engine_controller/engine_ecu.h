@@ -13,7 +13,7 @@ namespace engine_controller
 class EngineEcu : public Ecu
 {
 public:
-    EngineEcu(int ecu_id, const& LoadDetector detector, const& TemperatureSensor temperature_sensor);
+    EngineEcu(int ecu_id, const LoadDetector& detector, const TemperatureSensor& temperature_sensor);
     ~EngineEcu() = default;
 
     void setThrottle(double throttle);

@@ -1,7 +1,7 @@
 project(EngineControllerSrc)
 
 add_library(${PROJECT_NAME} STATIC
-    engine_cpu.cpp
+    engine_ecu.cpp
     load_detector.cpp
     math_helper.cpp
     temperature_sensor.cpp
