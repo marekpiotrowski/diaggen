@@ -1,0 +1,14 @@
+# Engine controller documentation
+
+## Static diagrams
+
+<!-- @diaggen-static@ --id=overall --ctx-dir=api/engine_controller -->
+<!-- @diaggen-static@ --id=load_detector --ctx=api/engine_controller/load_detector.h -->
+
+## Dynamic diagrams
+
+ToDo
+
+## Requirements
+
+ToDo
