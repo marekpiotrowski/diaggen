@@ -14,7 +14,10 @@ class GeneratorCommand(object):
         self.context = context
 
     def __expand_context_dir(self, context_dir):
-        files = os.listdir(os.path.join(self.project_root, context_dir))
+        abs_directory = os.path.join(self.project_root, context_dir)
+        if not os.path.isdir(abs_directory):
+            raise Exception("Context directory {} does not exist.".format(abs_directory))
+        files = os.listdir(abs_directory)
         files = list(map(lambda f: os.path.join(context_dir, f), files))
         return ','.join(files)
 
