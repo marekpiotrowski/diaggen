@@ -1,7 +1,13 @@
 import clang.cindex
 import typing
-index = clang.cindex.Index.create()
-translation_unit = index.parse('example/engine_controller/api/engine_controller/ecu.h', args=['-std=c++14'])
+
+class TranslationUnitExtractor(object):
+    def __init__(self, abs_filepath):
+        self.__translation_unit_filepath = abs_filepath
+
+    def get_class(self):
+        index = clang.cindex.Index.create()
+        translation_unit = index.parse('example/engine_controller/api/engine_controller/ecu.h', args=['-std=c++14']) # TODO do something with args...
 
 def is_exposed_field(node):
     return node.access_specifier == clang.cindex.AccessSpecifier.PUBLIC
