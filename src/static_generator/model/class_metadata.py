@@ -1,9 +1,9 @@
 class ClassMetadata(object):
-    def __init__(self, name):
+    def __init__(self, name, methods = []):
         self.parents = []
         self.name = name
-        self.methods = []
+        self.methods = methods
         self.fields = []
 
     def __repr__(self):
-        return "Class {}".format(self.name)
+        return "Class {}, methods: {}".format(self.name, self.methods)

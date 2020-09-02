@@ -1,6 +1,7 @@
 import clang.cindex
 import typing
 from .model.class_metadata import ClassMetadata
+from .model.method_metadata import MethodMetadata
 
 class CppTranslationUnitExtractor(object):
     def __init__(self, abs_filepath):
@@ -14,7 +15,13 @@ class CppTranslationUnitExtractor(object):
                                                            [clang.cindex.CursorKind.CLASS_DECL,
                                                             clang.cindex.CursorKind.STRUCT_DECL])
 
-        return [ClassMetadata(name=c.spelling) for c in all_classes]
+        result = []
+        for c in all_classes:
+            methods_names = self.__find_all_exposed_methods_names(c)
+            methods_instances = [MethodMetadata(name=mn) for mn in methods_names]
+            class_instance = ClassMetadata(name=c.spelling, methods=methods_instances)
+            result.append(class_instance)
+        return result
 
     @staticmethod
     def __filter_node_list_by_node_kind(nodes, kinds):
@@ -27,6 +34,23 @@ class CppTranslationUnitExtractor(object):
             if node.kind in kinds:
                 result.append(node)
         return result
+
+    @staticmethod
+    def __is_exposed_field(node):
+        return node.access_specifier == clang.cindex.AccessSpecifier.PUBLIC
+
+    @staticmethod
+    def __find_all_exposed_methods_names(cursor):
+        result = []
+        field_declarations = CppTranslationUnitExtractor.__filter_node_list_by_node_kind(cursor.get_children(),
+                                                                                         [clang.cindex.CursorKind.CXX_METHOD])
+        for i in field_declarations:
+            if not CppTranslationUnitExtractor.__is_exposed_field(i):
+                continue
+            result.append(i.spelling)
+        return result
+
+
 
 # def is_exposed_field(node):
 #     return node.access_specifier == clang.cindex.AccessSpecifier.PUBLIC

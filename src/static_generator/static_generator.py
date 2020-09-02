@@ -25,6 +25,7 @@ class StaticGenerator(object):
                     try:
                         cmd = self.__parse_static_generator_cmd(line)
                         print(cmd)
+                        cmd.execute()
                     except Exception as e:
                         print(" === Error in file {} at line {}. === ".format(self.__input_document_abs_path, line_number))
                         print(e)
@@ -41,6 +42,5 @@ class StaticGenerator(object):
         args = parser.parse_known_args(line.split(" "))
         known_args = args[0]
         cmd = GeneratorCommand(known_args.id, known_args.ctx, known_args.ctx_dir)
-        cmd.execute()
         return cmd
 
