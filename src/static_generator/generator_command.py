@@ -23,10 +23,9 @@ class GeneratorCommand(object):
         abs_directory = os.path.join(self.project_root, context_dir)
         if not os.path.isdir(abs_directory):
             raise Exception("Context directory {} does not exist.".format(abs_directory))
-        files = os.listdir(abs_directory)
-        files = list(map(lambda f: os.path.join(context_dir, f), files))
+        files = [os.path.join(context_dir, f) for f in os.listdir(abs_directory)]
         return ','.join(files)
 
-    def __str__(self):
+    def __repr__(self):
         return "Diagram identifier: {}, context: {}".format(
             self.diagram_identifier, self.context)

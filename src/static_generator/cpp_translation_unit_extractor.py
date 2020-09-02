@@ -1,6 +1,6 @@
 import clang.cindex
 import typing
-
+from .model.class_metadata import ClassMetadata
 
 class CppTranslationUnitExtractor(object):
     def __init__(self, abs_filepath):
@@ -14,7 +14,7 @@ class CppTranslationUnitExtractor(object):
                                                            [clang.cindex.CursorKind.CLASS_DECL,
                                                             clang.cindex.CursorKind.STRUCT_DECL])
 
-        return list(map(lambda c: c.spelling, all_classes))
+        return [ClassMetadata(name=c.spelling) for c in all_classes]
 
     @staticmethod
     def __filter_node_list_by_node_kind(nodes, kinds):
