@@ -1,6 +1,6 @@
 class ClassMetadata(object):
-    def __init__(self, name, methods = []):
-        self.parents = []
+    def __init__(self, name, methods, parents):
+        self.parents = parents
         self.name = name
         self.methods = methods
         self.fields = []
