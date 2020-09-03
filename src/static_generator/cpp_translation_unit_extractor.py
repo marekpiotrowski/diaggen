@@ -115,3 +115,19 @@ class CppTranslationUnitExtractor(object):
 # for i in all_classes:
 #     print(i.spelling)
 #     print(find_all_exposed_fields(i))
+
+# lil helper!
+# import clang.cindex
+#
+# index = clang.cindex.Index.create()
+# tu = index.parse(sys.argv[1], args=["-std=c++98"], options=clang.cindex.TranslationUnit.PARSE_SKIP_FUNCTION_BODIES)
+#
+# def printall_visitor(node):
+#     print 'Found grammar element "%s" {%s} [line=%s, col=%s]' % (node.displayname, node.kind, node.location.line, node.location.column)
+#
+# def visit(node, func):
+#     func(node)
+#     for c in node.get_children():
+#         visit(c, func)
+#
+# visit(tu.cursor, printall_visitor)
