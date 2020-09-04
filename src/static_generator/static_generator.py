@@ -39,8 +39,9 @@ class StaticGenerator(object):
         parser.add_argument("--id", help='Diagram unique identifier.')
         parser.add_argument("--ctx", help='Context (file list) for diagram generation.')
         parser.add_argument("--ctx-dir", help='Context (directory) for diagram generation.')
+        parser.add_argument("--includes", help='Comma-separated list of relative include directories used for compilation.')
         args = parser.parse_known_args(line.split(" "))
         known_args = args[0]
-        cmd = GeneratorCommand(known_args.id, known_args.ctx, known_args.ctx_dir)
+        cmd = GeneratorCommand(known_args.id, known_args.ctx, known_args.ctx_dir, known_args.includes)
         return cmd
 

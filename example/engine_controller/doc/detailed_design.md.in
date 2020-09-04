@@ -3,7 +3,7 @@
 ## Static diagrams
 
 <!-- @diaggen-static@ --id=overall --ctx=api/engine_controller/load_detector.h --ctx-dir=api/engine_controller -->
-<!-- @diaggen-static@ --id=overall --ctx-dir=api/engine_controller -->
+<!-- @diaggen-static@ --id=overall --ctx-dir=api/engine_controller --includes=api -->
 <!-- @diaggen-static@ --id=load_detector --ctx=api/engine_controller/load_detector.h -->
 <!-- @diaggen-static@ --id=load_detector --ctx-dir=api/blabla -->
 

@@ -4,19 +4,21 @@ from .config import Config
 class GeneratorCommand(object):
     project_root = "/" # TODO refactor this one
 
-    def __init__(self, diagram_identifier, context, context_dir):
+    def __init__(self, diagram_identifier, context, context_dir, relative_includes):
         if (context is None and context_dir is None) or (context is not None and context_dir is not None):
             raise Exception("Incorrect static generator command. You can't provide both ctx and ctx-dir.")
         if context_dir is not None:
             context = self.__expand_context_dir(context_dir)
         self.diagram_identifier = diagram_identifier
         self.context = context
+        self.relative_includes = "" if relative_includes is None else relative_includes
 
     def execute(self):
         translation_units_abs_paths = map(lambda f: os.path.join(self.project_root, f), self.context.split(','))
+        abs_includes = [os.path.join(self.project_root, incl) for incl in self.relative_includes.split(',')]
         TranslationUnitExtractorImpl = Config.get_class_metadata_extractor()
         for translation_unit in translation_units_abs_paths:
-            extractor = TranslationUnitExtractorImpl(translation_unit)
+            extractor = TranslationUnitExtractorImpl(translation_unit, abs_includes)
             print(extractor.get_classes())
 
     def __expand_context_dir(self, context_dir):
