@@ -50,23 +50,23 @@ class CppTranslationUnitExtractor(object):
             parent_name = new_node.spelling.split('::')[-1] # for some reason, parent base specifier has full namespace information
             registered_classes[context['$'].spelling].add_parent(parent_name)
 
-        def printall_visitor(node):
+        def classify(node):
             if node.kind == clang.cindex.CursorKind.CLASS_DECL:
                 context['$'] = node
             add_class_if_not_registered(context['$'])
             add_method_if_not_registered(node)
             add_parent_if_not_registered(node)
-            #if node.kind in [clang.cindex.CursorKind.CLASS_DECL, clang.cindex.CursorKind.CXX_BASE_SPECIFIER]:
-            #    print('Found grammar element "%s" {%s} [line=%s, col=%s]' % (node.displayname, node.kind, node.location.line, node.location.column))
 
         def visit(node, func):
             func(node)
             for c in node.get_children():
                 visit(c, func)
 
-        visit(translation_unit.cursor, printall_visitor)
-        # print(registered_classes)
+        visit(translation_unit.cursor, classify)
         return registered_classes
+
+
+
         # base_specifiers = self.__filter_node_list_by_node_kind(translation_unit.cursor.get_children(),
         #                                                        [clang.cindex.CursorKind.CXX_BASE_SPECIFIER],
         #                                                        go_into=[clang.cindex.CursorKind.CLASS_DECL,
