@@ -14,5 +14,14 @@ class ClassMetadata(object):
     def add_parent(self, parent_name):
         self.parents.append(parent_name)
 
+    def get_more_detailed(self, another_class):
+        if another_class is None:
+            return self
+        # todo for now, let's naively compare them
+        if len(another_class.methods) >= len(self.methods) and \
+                len(another_class.parents) >= len(self.parents) and len(another_class.fields) >= len(self.fields):
+            return another_class
+        return self
+
     def __repr__(self):
         return "\nClass {}, methods: {}, parents: {}\n".format(self.name, self.methods, self.parents)
