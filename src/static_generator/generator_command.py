@@ -25,16 +25,17 @@ class GeneratorCommand(object):
                     all_classes_grouped[c.name] = [c]
                 else:
                     all_classes_grouped[c.name].append(c)
-        self.__synthesize_classes_from_multiple_units(all_classes_grouped)
+        classes_big_picture = self.__synthesize_classes_from_multiple_units(all_classes_grouped)
+        relations = TranslationUnitExtractorImpl.demangle_relations(classes_big_picture)
 
     def __synthesize_classes_from_multiple_units(self, classes):
         result = {}
         for class_id, classes in classes.items():
             most_detailed = None
             for c in classes:
-                most_detailed = c.get_more_detailed(most_detailed)
+                if c.is_more_detailed_than(most_detailed):
+                    most_detailed = c
             result[class_id] = most_detailed
-        print(list(result.values()))
         return list(result.values())
 
 
