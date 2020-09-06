@@ -1,6 +1,7 @@
 import clang.cindex
 from .model.class_metadata import ClassMetadata
 from .model.method_metadata import MethodMetadata
+from .model.relation import Relation
 
 
 class CppTranslationUnitExtractor(object):
@@ -24,8 +25,21 @@ class CppTranslationUnitExtractor(object):
 
     @staticmethod
     def demangle_relations(all_classes_big_picture):
-        print(all_classes_big_picture)
-        return []
+        classes_ids = [c.name for c in all_classes_big_picture]
+        relations = []
+        for c in all_classes_big_picture:
+            for m in c.methods:
+                if (c.name not in m.return_type_name) and (m.return_type_name in classes_ids):
+                    relation = Relation(c.name, m.return_type_name, Relation.USAGE)
+                    relations.append(relation)
+                for class_id in classes_ids:
+                    if (c.name != class_id) and (class_id in ','.join(m.arguments)):
+                        relation = Relation(c.name, class_id, Relation.USAGE)
+                        relations.append(relation)
+            for p in c.parents:
+                relation = Relation(c.name, p, Relation.INHERITANCE)
+                relations.append(relation)
+        return relations
 
     @staticmethod
     def __is_exposed_field(node):

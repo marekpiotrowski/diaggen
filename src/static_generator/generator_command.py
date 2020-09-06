@@ -27,6 +27,8 @@ class GeneratorCommand(object):
                     all_classes_grouped[c.name].append(c)
         classes_big_picture = self.__synthesize_classes_from_multiple_units(all_classes_grouped)
         relations = TranslationUnitExtractorImpl.demangle_relations(classes_big_picture)
+        print(classes_big_picture)
+        print(relations)
 
     def __synthesize_classes_from_multiple_units(self, classes):
         result = {}
