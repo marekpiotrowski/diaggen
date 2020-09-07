@@ -1,5 +1,6 @@
 import os
 from .config import Config
+from .puml.static_puml_formatter import StaticPumlFormatter
 
 class GeneratorCommand(object):
     project_root = "/" # TODO refactor this one
@@ -29,6 +30,9 @@ class GeneratorCommand(object):
         relations = TranslationUnitExtractorImpl.demangle_relations(classes_big_picture)
         print(classes_big_picture)
         print(relations)
+        formatter = StaticPumlFormatter()
+        print(formatter.get_puml_for_model(classes_big_picture, relations))
+
 
     def __synthesize_classes_from_multiple_units(self, classes):
         result = {}
