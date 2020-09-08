@@ -6,7 +6,7 @@ class StaticPumlFormatter(object):
         pass
 
     @staticmethod
-    def break_too_long_lines(lines):
+    def __break_too_long_lines(lines):
         # todo naively break; later on, we have to detect whitespaces
         BREAK_AT = 60
         result_with_breaks = ""
@@ -17,6 +17,7 @@ class StaticPumlFormatter(object):
         return result_with_breaks
 
     def get_puml_for_model(self, classes, relations):
+        # todo add namespaces - packages
         result = '@startuml\n'
         for c in classes:
             result = result + "class {} {{\n".format(c.name)
@@ -32,5 +33,5 @@ class StaticPumlFormatter(object):
                 relation_as_uml = "{} <|-- {}\n".format(r.party_b, r.party_a)
             result = result + relation_as_uml
         result = result + "@enduml"
-        result = self.break_too_long_lines(result)
+        result = self.__break_too_long_lines(result)
         return result
