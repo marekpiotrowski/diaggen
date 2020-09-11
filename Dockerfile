@@ -15,4 +15,4 @@ RUN echo 'alias python="python3"' >> ~/.bashrc
 # useful commands:
 # docker build --tag diaggen_image:1.0 .
 # docker run -it --volume /home/mpiotrowski/Projects/diaggen/:/diaggen diaggen_image:1.0 /bin/bash
-# python src/app.py --project-dir=/diaggen/example/engine_controller --doc=doc/detailed_design.md.in
+# python python3 -m diaggen --project-dir=/diaggen/example/engine_controller --doc=doc/detailed_design.md.in
