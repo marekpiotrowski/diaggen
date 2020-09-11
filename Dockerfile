@@ -5,7 +5,7 @@ RUN apt-get install -y cmake python3-pip ca-certificates wget software-propertie
 RUN wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
 RUN apt-add-repository "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-11 main"
 RUN apt-get update
-RUN apt-get install -y clang-11
+RUN apt-get install -y plantuml clang-11
 
 RUN cp /usr/lib/llvm-11/lib/libclang-11.so.1 /usr/lib/libclang-11.so
 
