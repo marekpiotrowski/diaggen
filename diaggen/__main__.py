@@ -1,8 +1,8 @@
 import argparse
 import os
 
-from static_generator.static_generator import StaticGenerator
-from common.md_with_puml_to_pdf_generator import MdWithPumlToPdfGenerator
+from .src.static_generator.static_generator import StaticGenerator
+from .src.common.md_with_puml_to_pdf_generator import MdWithPumlToPdfGenerator
 
 
 if __name__ == "__main__":
