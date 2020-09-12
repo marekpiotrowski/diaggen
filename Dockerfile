@@ -10,6 +10,7 @@ RUN apt-get install -y plantuml clang-11
 RUN cp /usr/lib/llvm-11/lib/libclang-11.so.1 /usr/lib/libclang-11.so
 
 RUN pip3 install clang
+RUN pip3 install md2pdf
 RUN echo 'alias python="python3"' >> ~/.bashrc
 
 # useful commands:

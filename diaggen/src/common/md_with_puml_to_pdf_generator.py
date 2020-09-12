@@ -2,6 +2,7 @@ import os
 import re
 
 import subprocess
+from md2pdf.core import md2pdf
 
 class MdWithPumlToPdfGenerator(object):
     IMG_EXTENSION = "png"
@@ -37,6 +38,15 @@ class MdWithPumlToPdfGenerator(object):
                     ignore = True
                     continue
                 output_file.writelines([line])
+        pdf_file_path = md_file_path.replace('.md', '.pdf')
+        # TODO where to store such config file?
+        css_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+        css_path = os.path.join(os.path.dirname(css_path), 'config', 'default.css')
+        md2pdf(pdf_file_path,
+               md_content=None,
+               md_file_path=output_file_path,
+               css_file_path=css_path,
+               base_url=self.__temporary_dir_for_files)
 
     def __save_puml_to_file(self, puml, idx):
         abs_file_path = os.path.join(self.__temporary_dir_for_files, "{}{}.{}".format(self.TEMPLATE_BASE, idx, self.PUML_EXTENSION))
