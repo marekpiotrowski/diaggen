@@ -25,16 +25,18 @@ class StaticGenerator(object):
             line = docfile.readline()
             line_number = 1
             while line:
+                parsed_cmd = GeneratorCommand.try_parse(line)
+                if parsed_cmd:
+                    model_as_string = parsed_cmd.get_model_as_string()
+                    output_file.write('```puml\n')
+                    output_file.write(model_as_string)
+                    output_file.write('```\n')
                 if self.STATIC_DIAGGEN_TOKEN in line:
                     try:
                         cmd = self.__parse_static_generator_cmd(line)
                         print(cmd)
                         model_as_string = cmd.execute()
-                        output_file.write('```puml\n')
-                        output_file.write(model_as_string)
-                        output_file.write('```\n')
-                        #if Config.should_generate_images():
-                        #    self.__generate_img(os.path.dirname(output_document_file_path), model_as_string)
+
                     except Exception as e:
                         print(" === Error in file {} at line {}. === ".format(self.__input_document_abs_path, line_number))
                         print(e)
@@ -42,12 +44,6 @@ class StaticGenerator(object):
                     output_file.writelines([line])
                 line = docfile.readline()
                 line_number = line_number + 1
-
-    #@staticmethod
-    #def __generate_img(base_dir, uml_as_string, output_filename_without_extension):
-    #    uml_filename = "{}.puml".format(output_filename_without_extension)
-    #    img_filename = "{}.jpg".format(output_filename_without_extension)
-    #    pass
 
     def __parse_static_generator_cmd(self, line):
         line = line.replace(self.OPENING_COMMENT_TOKEN, ''). \
