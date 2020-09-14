@@ -16,16 +16,16 @@ class StaticPumlFormatter(object):
             result_with_breaks = result_with_breaks + line_with_breaks + "\n"
         return result_with_breaks
 
-    def get_puml_for_model(self, classes, relations):
+    def get_string(self, class_diagram_model):
         # todo add namespaces - packages
         result = '@startuml\n'
-        for c in classes:
+        for c in class_diagram_model.classes:
             result = result + "class {} {{\n".format(c.name)
             for m in c.methods:
                 args = ", ".join(m.arguments)
                 result = result + "    +{} {}({})\n".format(m.return_type_name, m.name, args) # todo add arguments!
             result = result + "}\n"
-        for r in relations:
+        for r in class_diagram_model.relations:
             relation_as_uml = ""
             if r.type == Relation.USAGE:
                 relation_as_uml = "{} --> {}: use\n".format(r.party_a, r.party_b)
