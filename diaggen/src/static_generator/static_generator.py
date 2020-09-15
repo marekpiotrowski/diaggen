@@ -24,7 +24,7 @@ class StaticGenerator(object):
             while line:
                 cmd_parsed, error = GeneratorCommand.try_parse(line)
                 if cmd_parsed and not error:
-                    parsed_model, error = cmd_parsed.get_model()
+                    parsed_model = cmd_parsed.get_model()
                     puml_formatter = StaticPumlFormatter()
                     model_as_string = puml_formatter.get_string(parsed_model)
                     output_file.write('```puml\n')

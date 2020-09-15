@@ -10,13 +10,13 @@ class GeneratorCommand(object):
     CLOSING_COMMENT_TOKEN = "-->"
 
     def __init__(self, diagram_identifier, context, relative_includes):
-        self.diagram_identifier = diagram_identifier
-        self.context = context
-        self.relative_includes = "" if relative_includes is None else relative_includes
+        self.__diagram_identifier = diagram_identifier
+        self.__context = context
+        self.__relative_includes = "" if relative_includes is None else relative_includes
 
     def get_model(self):
-        translation_units_abs_paths = map(lambda f: os.path.join(self.project_root, f), self.context.split(','))
-        abs_includes = [os.path.join(self.project_root, incl) for incl in self.relative_includes.split(',')]
+        translation_units_abs_paths = map(lambda f: os.path.join(self.project_root, f), self.__context.split(','))
+        abs_includes = [os.path.join(self.project_root, incl) for incl in self.__relative_includes.split(',')]
         TranslationUnitExtractorImpl = Config.get_class_metadata_extractor()
         all_classes_grouped = {}
         for translation_unit in translation_units_abs_paths:
@@ -29,7 +29,7 @@ class GeneratorCommand(object):
         classes_big_picture = self.__synthesize_classes_from_multiple_units(all_classes_grouped)
         relations = TranslationUnitExtractorImpl.demangle_relations(classes_big_picture)
         model = ClassDiagramModel(classes_big_picture, relations)
-        return model, None
+        return model
 
     @staticmethod
     def __synthesize_classes_from_multiple_units(classes):
@@ -76,4 +76,4 @@ class GeneratorCommand(object):
 
     def __repr__(self):
         return "Diagram identifier: {}, context: {}".format(
-            self.diagram_identifier, self.context)
+            self.__diagram_identifier, self.__context)
