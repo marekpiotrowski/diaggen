@@ -1,8 +1,7 @@
 import pytest
+import pytest_mock
 import os
 import shutil
-# from unittest.mock import MagicMock
-# from unittest.mock import patch
 
 from ..src.static_generator.generator_command import GeneratorCommand
 from ..src.static_generator.config import Config
@@ -83,8 +82,13 @@ def test_generator_command_ctx_dir_does_not_exist():
 
 # @patch('..src.static_generator.cpp_translation_unit_extractor.CppTranslationUnitExtractor')
 # def test_generator_command_ctx_dir_expands_correctly(DummyTranslationUnitExtractor, create_ctx_dir):
-def test_generator_command_ctx_dir_expands_correctly(create_ctx_dir):
+# @mock.patch('..src.static_generator.cpp_translation_unit_extractor.CppTranslationUnitExtractor', autospec=True)
+def test_generator_command_ctx_dir_expands_correctly(create_ctx_dir, mocker):
+    patcher = mocker.patch("diaggen.src.static_generator.cpp_translation_unit_extractor.CppTranslationUnitExtractor", spec=True)
     Config.set_class_metadata_extractor(DummyTranslationUnitExtractor)
+
+    # MockClass = patcher.start()
+
     GeneratorCommand.project_root = os.getcwd()
     cmd, error = GeneratorCommand.try_parse("<!-- @diaggen-static@ --id=overall --ctx-dir=example_ctx_dir -->")
 
