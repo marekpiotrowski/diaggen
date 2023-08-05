@@ -21,7 +21,7 @@ docker build --tag diaggen_image:1.0 .
 docker run -it --volume /repo/root/diaggen/:/diaggen diaggen_image:1.0 /bin/bash
 ```
 
-Then, to run the example, issue the following command:
+Then, to run the example, issue the following commands:
 
 ```
 cd diaggen
