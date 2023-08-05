@@ -2,10 +2,15 @@
 
 ## Static diagrams
 
+### Overall
+
 <!-- @diaggen-static@ --id=overall --ctx=api/engine_controller/load_detector.h --ctx-dir=api/engine_controller -->
 <!-- @diaggen-static@ --id=overall --ctx-dir=api/engine_controller --includes=api -->
+
+### Load detector
+
 <!-- @diaggen-static@ --id=load_detector --ctx=api/engine_controller/load_detector.h -->
-<!-- @diaggen-static@ --id=load_detector --ctx-dir=api/blabla -->
+<!-- @diaggen-static@ --id=load_detector --ctx-dir=api/non_existent_dir -->
 
 ## Dynamic diagrams
 

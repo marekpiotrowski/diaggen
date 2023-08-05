@@ -1,8 +1,6 @@
 #ifndef ENGINE_CONTROLLER_API_ENGINE_CONTROLLER_ECU_H
 #define ENGINE_CONTROLLER_API_ENGINE_CONTROLLER_ECU_H
 
-#include <engine_controller/ecu.h>
-
 namespace diaggen
 {
 namespace engine_controller

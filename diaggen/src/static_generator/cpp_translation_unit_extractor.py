@@ -11,7 +11,7 @@ class CppTranslationUnitExtractor(object):
         self.__context = None
         self.__registered_classes = {}
         index = clang.cindex.Index.create()
-        clang_args = ['-std=c++14']  # TODO do something with args...
+        clang_args = ['-x', 'c++', '--std=c++14']  # TODO do something with args...
         includes = ["-I" + include for include in self.__abs_includes]
         clang_args = clang_args + includes
         self.__translation_unit = index.parse(self.__translation_unit_abs_filepath,
@@ -75,6 +75,8 @@ class CppTranslationUnitExtractor(object):
 
     def __traverse_top_to_bottom(self):
         def classify(node):
+            if self.__translation_unit_abs_filepath not in str(node.location):
+                return
             if node.kind == clang.cindex.CursorKind.CLASS_DECL:
                 self.__context = node
             self.__add_class_if_not_registered(self.__context)
