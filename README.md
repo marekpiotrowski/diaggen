@@ -69,4 +69,5 @@ example/engine_controller/doc
 ```
 
 The final PDF will look similarly to this:
+
 ![Example SDD output.](doc/example_sdd_output.png)
